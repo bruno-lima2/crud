@@ -48,8 +48,8 @@ function findUser(id, callback) {
             SELECT * FROM users
             WHERE id = ?`,
     [id],
-    function (error, usuario) {
-      callback(error, usuario);
+    function (error, user) {
+      callback(error, user);
     },
   );
 }

@@ -20,8 +20,8 @@ function removeUser(id, callback) {
   });
 }
 function searchUser(id, callback) {
-  userRepository.findUser(id, (error, usuario) => {
-    callback(error, usuario);
+  userRepository.findUser(id, (error, user) => {
+    callback(error, user);
   });
 }
 module.exports = { listUsers, addUser, updateUser, removeUser, searchUser };
