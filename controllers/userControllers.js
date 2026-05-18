@@ -1,6 +1,6 @@
-const userRepository = require("../repository/userRepository");
+const userService = require("../services/userServices");
 function listUsers(request, response) {
-  userRepository.showUsers((error, users) => {
+  userService.listUsers((error, users) => {
     if (error) {
       return response.status(500).json({ erro: erro.message });
     }
@@ -12,7 +12,7 @@ function addUser(request, response) {
   if (!name || typeof name !== "string") {
     return response.status(400).json("Usúario inválido");
   }
-  userRepository.createUser(name, (error, id) => {
+  userService.addUser(name, (error, id) => {
     if (error) {
       return response.status(500).json({ erro: erro.message });
     }
@@ -25,7 +25,7 @@ function updateUser(request, response) {
   if (!name || typeof name !== "string") {
     return response.status(400).json("Usuário inválido");
   }
-  userRepository.changeUser(id, name, (error, changes) => {
+  userService.updateUser(id, name, (error, changes) => {
     if (error) {
       return response.status(500).json({ error: error.message });
     }
@@ -37,7 +37,7 @@ function updateUser(request, response) {
 }
 function removeUser(request, response) {
   const { id } = request.params;
-  userRepository.deleteUser(id, (error, changes) => {
+  userService.removeUser(id, (error, changes) => {
     if (error) {
       return response.status(500).json({ error: error.message });
     }
@@ -49,7 +49,7 @@ function removeUser(request, response) {
 }
 function searchUser(request, response) {
   const { id } = request.params;
-  userRepository.findUser(id, (error, usuario) => {
+  userService.searchUser(id, (error, usuario) => {
     if (error) {
       return response.status(500).json({ error: error.message });
     }
