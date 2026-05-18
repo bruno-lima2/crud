@@ -16,7 +16,7 @@ function addUser(request, response) {
     if (error) {
       return response.status(500).json({ erro: erro.message });
     }
-    response.status(201).json({ id, name });
+    response.status(201).json({message: "Usuário criado", error: {id, name}})
   });
 }
 function updateUser(request, response) {
@@ -30,7 +30,7 @@ function updateUser(request, response) {
       return response.status(500).json({ error: error.message });
     }
     if (changes === 0) {
-      return response.status(404).json("Usuário não encontrado");
+      return response.status(404).json({ error: "Usuário não encontrado" });
     }
     response.status(200).json({ id, name });
   });
@@ -42,7 +42,7 @@ function removeUser(request, response) {
       return response.status(500).json({ error: error.message });
     }
     if (changes === 0) {
-      return response.status(404).json("Usúario não encontrado");
+      return response.status(404).json({ error: "Usuário não encontrado" });
     }
     response.status(204).send();
   });
@@ -54,7 +54,7 @@ function searchUser(request, response) {
       return response.status(500).json({ error: error.message });
     }
     if (!usuario) {
-      return response.status(404).json("Usuário não encontrado");
+      return response.status(404).json({ error: "Usuário não encontrado" });
     }
     response.json(usuario);
   });
