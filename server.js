@@ -9,3 +9,5 @@ app.get("/", (request, response) => {
 app.listen(3000, (request, response) => {
   console.log("Servidor na porta 3000");
 });
+const errorHandler = require("./middlewares/errorHandler");
+app.use(errorHandler);
