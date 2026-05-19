@@ -1,5 +1,5 @@
 const userServices = require("../services/userServices");
-function listUsers(request, response) {
+function listUsers(request, response, next) {
   userServices.listUsers((error, users) => {
     if (error) {
       return next(error)
@@ -10,7 +10,7 @@ function listUsers(request, response) {
     });
   });
 }
-function addUser(request, response) {
+function addUser(request, response, next) {
   const { name } = request.body;
   if (!name || typeof name !== "string") {
     return response.status(400).json({
@@ -29,7 +29,7 @@ function addUser(request, response) {
     });
   });
 }
-function updateUser(request, response) {
+function updateUser(request, response, next) {
   const { id } = request.params;
   const { name } = request.body;
   if (!name || typeof name !== "string") {
@@ -55,7 +55,7 @@ function updateUser(request, response) {
     });
   });
 }
-function removeUser(request, response) {
+function removeUser(request, response, next) {
   const { id } = request.params;
   userServices.removeUser(id, (error, changes) => {
     if (error) {
@@ -73,7 +73,7 @@ function removeUser(request, response) {
     });
   });
 }
-function searchUser(request, response) {
+function searchUser(request, response, next) {
   const { id } = request.params;
   userServices.searchUser(id, (error, user) => {
     if (error) {
