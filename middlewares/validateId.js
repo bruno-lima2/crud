@@ -1,7 +1,10 @@
 function validateId(request, response, next) {
   const { id } = request.params;
   if (!id || isNaN(id)) {
-    return response.status(400).json("ID inválido");
+    return response.status(400).json({
+      success: false,
+      message: "ID inválido",
+    });
   }
   next();
 }

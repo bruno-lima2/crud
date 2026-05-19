@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-module.exports = router;
 const {
   listUsers,
   addUser,
@@ -14,3 +13,4 @@ router.post("/", addUser);
 router.put("/:id", updateUser);
 router.delete("/:id", removeUser);
 router.get("/:id", validateId, searchUser);
+module.exports = router;

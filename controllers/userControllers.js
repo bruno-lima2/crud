@@ -1,6 +1,6 @@
-const userService = require("../services/userServices");
+const userServices = require("../services/userServices");
 function listUsers(request, response) {
-  userService.listUsers((error, users) => {
+  userServices.listUsers((error, users) => {
     if (error) {
       return response.status(500).json({
         success: false,
@@ -17,11 +17,11 @@ function addUser(request, response) {
   const { name } = request.body;
   if (!name || typeof name !== "string") {
     return response.status(400).json({
-      sucess: false,
+      success: false,
       message: "Usuário inválido",
     });
   }
-  userService.addUser(name, (error, id) => {
+  userServices.addUser(name, (error, id) => {
     if (error) {
       return response.status(500).json({
         success: false,
@@ -44,7 +44,7 @@ function updateUser(request, response) {
       message: "Usuário inválido",
     });
   }
-  userService.updateUser(id, name, (error, changes) => {
+  userServices.updateUser(id, name, (error, changes) => {
     if (error) {
       return response.status(500).json({
         success: false,
@@ -66,7 +66,7 @@ function updateUser(request, response) {
 }
 function removeUser(request, response) {
   const { id } = request.params;
-  userService.removeUser(id, (error, changes) => {
+  userServices.removeUser(id, (error, changes) => {
     if (error) {
       return response.status(500).json({
         success: false,
@@ -87,7 +87,7 @@ function removeUser(request, response) {
 }
 function searchUser(request, response) {
   const { id } = request.params;
-  userService.searchUser(id, (error, user) => {
+  userServices.searchUser(id, (error, user) => {
     if (error) {
       return response.status(500).json({
         success: false,
