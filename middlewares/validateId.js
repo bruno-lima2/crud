@@ -8,4 +8,4 @@ function validateId(request, response, next) {
   }
   next();
 }
-module.exports = { validateId };
+module.exports = validateId;

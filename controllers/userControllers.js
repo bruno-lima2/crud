@@ -2,7 +2,7 @@ const userServices = require("../services/userServices");
 function listUsers(request, response, next) {
   userServices.listUsers((error, users) => {
     if (error) {
-      return next(error)
+      return next(error);
     }
     response.status(200).json({
       success: true,
@@ -20,11 +20,11 @@ function addUser(request, response, next) {
   }
   userServices.addUser(name, (error, id) => {
     if (error) {
-      return next(error)
+      return next(error);
     }
     response.status(201).json({
       success: true,
-      message: "Usuário criado",
+      message: "Usuário adicionado",
       data: { id, name },
     });
   });
@@ -40,7 +40,7 @@ function updateUser(request, response, next) {
   }
   userServices.updateUser(id, name, (error, changes) => {
     if (error) {
-      return next(error)
+      return next(error);
     }
     if (changes === 0) {
       return response.status(404).json({
@@ -50,7 +50,7 @@ function updateUser(request, response, next) {
     }
     response.status(200).json({
       success: true,
-      message: "Usuário alterado",
+      message: "Usuário atualizado",
       data: { id, name },
     });
   });
@@ -59,7 +59,7 @@ function removeUser(request, response, next) {
   const { id } = request.params;
   userServices.removeUser(id, (error, changes) => {
     if (error) {
-      return next(error)
+      return next(error);
     }
     if (changes === 0) {
       return response.status(404).json({
@@ -77,7 +77,7 @@ function searchUser(request, response, next) {
   const { id } = request.params;
   userServices.searchUser(id, (error, user) => {
     if (error) {
-      return next(error)
+      return next(error);
     }
     if (!user) {
       return response.status(404).json({

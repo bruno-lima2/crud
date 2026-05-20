@@ -7,7 +7,7 @@ const {
   removeUser,
   searchUser,
 } = require("../controllers/userControllers");
-const { validateId } = require("../middlewares/validateId");
+const validateId = require("../middlewares/validateId");
 router.get("/", listUsers);
 router.post("/", addUser);
 router.put("/:id", updateUser);
