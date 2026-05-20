@@ -1,4 +1,5 @@
 const userServices = require("../services/userServices");
+const AppError = require("../utils/AppError")
 function listUsers(request, response, next) {
   userServices.listUsers((error, users) => {
     if (error) {
@@ -13,10 +14,7 @@ function listUsers(request, response, next) {
 function addUser(request, response, next) {
   const { name } = request.body;
   if (!name || typeof name !== "string") {
-    return response.status(400).json({
-      success: false,
-      message: "Usuário inválido",
-    });
+    return next(new AppError("Usuário inválido", 400))
   }
   userServices.addUser(name, (error, id) => {
     if (error) {
@@ -33,20 +31,14 @@ function updateUser(request, response, next) {
   const { id } = request.params;
   const { name } = request.body;
   if (!name || typeof name !== "string") {
-    return response.status(400).json({
-      success: false,
-      message: "Usuário inválido",
-    });
+    return next(new AppError("Usuário inválido", 400))
   }
   userServices.updateUser(id, name, (error, changes) => {
     if (error) {
       return next(error);
     }
     if (changes === 0) {
-      return response.status(404).json({
-        success: false,
-        message: "Usuário não encontrado",
-      });
+      return next(new AppError("Usuário não encontrado", 404))
     }
     response.status(200).json({
       success: true,
@@ -62,10 +54,7 @@ function removeUser(request, response, next) {
       return next(error);
     }
     if (changes === 0) {
-      return response.status(404).json({
-        success: false,
-        message: "Usuário não encontrado",
-      });
+      return next(new AppError("Usuário não encontrado", 404))
     }
     response.status(204).json({
       success: true,
@@ -80,10 +69,7 @@ function searchUser(request, response, next) {
       return next(error);
     }
     if (!user) {
-      return response.status(404).json({
-        success: false,
-        message: "Usuário não encontrado",
-      });
+      return next(new AppError("Usuário não encontrado", 404))
     }
     response.status(200).json({
       success: true,

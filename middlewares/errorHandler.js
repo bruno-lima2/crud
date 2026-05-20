@@ -1,8 +1,8 @@
 function errorHandler(error, request, response, next) {
   console.error(error);
-  response.status(500).json({
+  response.status(error.statusCode || 500).json({
     success: false,
-    message: error.message,
+    message: error.message || "Erro interno do servidor"
   });
 }
 module.exports = errorHandler;

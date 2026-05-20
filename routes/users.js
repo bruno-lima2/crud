@@ -10,7 +10,7 @@ const {
 const validateId = require("../middlewares/validateId");
 router.get("/", listUsers);
 router.post("/", addUser);
-router.put("/:id", updateUser);
-router.delete("/:id", removeUser);
+router.put("/:id", validateId, updateUser);
+router.delete("/:id", validateId, removeUser);
 router.get("/:id", validateId, searchUser);
 module.exports = router;
