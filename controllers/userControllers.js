@@ -1,5 +1,5 @@
 const userServices = require("../services/userServices");
-const AppError = require("../utils/AppError")
+const AppError = require("../utils/AppError");
 function listUsers(request, response, next) {
   userServices.listUsers((error, users) => {
     if (error) {
@@ -14,7 +14,7 @@ function listUsers(request, response, next) {
 function addUser(request, response, next) {
   const { name } = request.body;
   if (!name || typeof name !== "string") {
-    return next(new AppError("Usuário inválido", 400))
+    return next(new AppError(400, "Usuário inválido"));
   }
   userServices.addUser(name, (error, id) => {
     if (error) {
@@ -31,14 +31,14 @@ function updateUser(request, response, next) {
   const { id } = request.params;
   const { name } = request.body;
   if (!name || typeof name !== "string") {
-    return next(new AppError("Usuário inválido", 400))
+    return next(new AppError(400, "Usuário inválido"));
   }
   userServices.updateUser(id, name, (error, changes) => {
     if (error) {
       return next(error);
     }
     if (changes === 0) {
-      return next(new AppError("Usuário não encontrado", 404))
+      return next(new AppError(404, "Usuário não encontrado"));
     }
     response.status(200).json({
       success: true,
@@ -54,12 +54,9 @@ function removeUser(request, response, next) {
       return next(error);
     }
     if (changes === 0) {
-      return next(new AppError("Usuário não encontrado", 404))
+      return next(new AppError(404, "Usuário não encontrado"));
     }
-    response.status(204).json({
-      success: true,
-      message: "Usuário removido",
-    });
+    response.status(204).send();
   });
 }
 function searchUser(request, response, next) {
@@ -69,7 +66,7 @@ function searchUser(request, response, next) {
       return next(error);
     }
     if (!user) {
-      return next(new AppError("Usuário não encontrado", 404))
+      return next(new AppError(404, "Usuário não encontrado"));
     }
     response.status(200).json({
       success: true,

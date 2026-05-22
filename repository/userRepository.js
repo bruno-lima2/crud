@@ -3,7 +3,7 @@ function showUsers(callback) {
   database.all(
     `
             SELECT * FROM users`,
-    (error, users) => {
+    function (error, users) {
       callback(error, users);
     },
   );
