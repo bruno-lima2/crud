@@ -1,27 +1,22 @@
 const userRepository = require("../repository/userRepository");
-function listUsers(callback) {
-  userRepository.showUsers((error, users) => {
-    callback(error, users);
-  });
+async function listUsers() {
+  const users = await userRepository.showUsers();
+  return users;
 }
-function addUser(name, callback) {
-  userRepository.createUser(name, (error, id) => {
-    callback(error, id);
-  });
+async function addUser(name) {
+  const id = await userRepository.createUser(name);
+  return id;
 }
-function updateUser(id, name, callback) {
-  userRepository.changeUser(id, name, (error, changes) => {
-    callback(error, changes);
-  });
+async function updateUser(id, name) {
+  const changes = await userRepository.changeUser(id, name);
+  return changes;
 }
-function removeUser(id, callback) {
-  userRepository.deleteUser(id, (error, changes) => {
-    callback(error, changes);
-  });
+async function removeUser(id) {
+  const changes = await userRepository.deleteUser(id);
+  return changes;
 }
-function searchUser(id, callback) {
-  userRepository.findUser(id, (error, user) => {
-    callback(error, user);
-  });
+async function searchUser(id) {
+  const user = await userRepository.findUser(id);
+  return user;
 }
 module.exports = { listUsers, addUser, updateUser, removeUser, searchUser };
