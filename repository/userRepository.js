@@ -3,7 +3,7 @@ function showUsers() {
   return new Promise((resolve, reject) => {
     database.all(
       `
-                  SELECT * FROM users`,
+        SELECT * FROM users`,
       function (error, users) {
         if (error) {
           return reject(error);
@@ -22,7 +22,7 @@ function createUser(name) {
       [name],
       function (error) {
         if (error) {
-          reject(error);
+          return reject(error);
         }
         resolve(this.lastID);
       },

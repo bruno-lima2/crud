@@ -15,7 +15,7 @@ async function addUser(request, response, next) {
   try {
     const { name } = request.body;
     if (!name || typeof name !== "string") {
-      throw new AppError("Usuário inválido", 400);
+      throw new AppError(400, "Usuário inválido");
     }
     const id = await userServices.addUser(name);
     response.status(201).json({
@@ -32,11 +32,11 @@ async function updateUser(request, response, next) {
     const { id } = request.params;
     const { name } = request.body;
     if (!name || typeof name !== "string") {
-      throw new AppError("Usuário inválido", 400);
+      throw new AppError(400, "Usuário inválido");
     }
     const changes = await userServices.updateUser(id, name);
     if (changes === 0) {
-      throw new AppError("Usuário não encontrado", 404);
+      throw new AppError(404, "Usuário não encontrado");
     }
     response.status(200).json({
       success: true,
@@ -52,12 +52,9 @@ async function removeUser(request, response, next) {
     const { id } = request.params;
     const changes = await userServices.removeUser(id);
     if (changes === 0) {
-      throw new AppError("Usuário não encontrado", 404);
+      throw new AppError(404, "Usuário não encontrado");
     }
-    response.status(200).json({
-      success: true,
-      message: "Usuário removido",
-    });
+    response.status(204).send();
   } catch (error) {
     next(error);
   }
@@ -67,7 +64,7 @@ async function searchUser(request, response, next) {
     const { id } = request.params;
     const user = await userServices.searchUser(id);
     if (!user) {
-      throw new AppError("Usuário não encontrado", 404);
+      throw new AppError(404, "Usuário não encontrado");
     }
     response.status(200).json({
       success: true,
@@ -77,10 +74,4 @@ async function searchUser(request, response, next) {
     next(error);
   }
 }
-module.exports = {
-  listUsers,
-  addUser,
-  updateUser,
-  removeUser,
-  searchUser,
-};
+module.exports = { listUsers, addUser, updateUser, removeUser, searchUser };
