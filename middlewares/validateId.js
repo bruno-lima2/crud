@@ -1,8 +1,8 @@
-const AppError = require("../utils/AppError")
+const AppError = require("../utils/AppError");
 function validateId(request, response, next) {
   const { id } = request.params;
   if (!id || isNaN(id)) {
-    return next(new AppError(400, "ID inválido"));
+    throw new AppError(400, "ID inválido");
   }
   next();
 }

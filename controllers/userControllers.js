@@ -8,7 +8,7 @@ async function listUsers(request, response, next) {
       data: users,
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 async function addUser(request, response, next) {
@@ -24,7 +24,7 @@ async function addUser(request, response, next) {
       data: { id, name },
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 async function updateUser(request, response, next) {
@@ -44,7 +44,7 @@ async function updateUser(request, response, next) {
       data: { id, name },
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 async function removeUser(request, response, next) {
@@ -56,7 +56,7 @@ async function removeUser(request, response, next) {
     }
     response.status(204).send();
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 async function searchUser(request, response, next) {
@@ -68,10 +68,10 @@ async function searchUser(request, response, next) {
     }
     response.status(200).json({
       success: true,
-      data: user,
+      data: { user },
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 module.exports = { listUsers, addUser, updateUser, removeUser, searchUser };
