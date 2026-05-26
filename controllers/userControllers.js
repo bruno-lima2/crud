@@ -1,5 +1,6 @@
 const userServices = require("../services/userServices");
 const AppError = require("../utils/AppError");
+const { createUserSchema } = require("../schemas/userSchema");
 async function listUsers(request, response, next) {
   try {
     const users = await userServices.listUsers();
@@ -13,15 +14,15 @@ async function listUsers(request, response, next) {
 }
 async function addUser(request, response, next) {
   try {
-    const { name } = request.body;
-    if (!name || typeof name !== "string") {
-      throw new AppError(400, "Usuário inválido");
-    }
-    const id = await userServices.addUser(name);
+    const validatedData = createUserSchema.parse(request.body);
+    const id = await userServices.addUser(validatedData.name);
     response.status(201).json({
       success: true,
       message: "Usuário adicionado",
-      data: { id, name },
+      data: {
+        id,
+        name: validatedData.name,
+      },
     });
   } catch (error) {
     return next(error);
@@ -30,18 +31,18 @@ async function addUser(request, response, next) {
 async function updateUser(request, response, next) {
   try {
     const { id } = request.params;
-    const { name } = request.body;
-    if (!name || typeof name !== "string") {
-      throw new AppError(400, "Usuário inválido");
-    }
-    const changes = await userServices.updateUser(id, name);
+    const validatedData = createUserSchema.parse(request.body);
+    const changes = await userServices.updateUser(id, validatedData.name);
     if (changes === 0) {
       throw new AppError(404, "Usuário não encontrado");
     }
     response.status(200).json({
       success: true,
       message: "Usuário atualizado",
-      data: { id, name },
+      data: {
+        id,
+        name: validatedData.name,
+      },
     });
   } catch (error) {
     return next(error);
