@@ -19,10 +19,7 @@ async function addUser(request, response, next) {
     response.status(201).json({
       success: true,
       message: "Usuário adicionado",
-      data: {
-        id,
-        name: validatedData.name,
-      },
+      data: { id, name: validatedData.name },
     });
   } catch (error) {
     return next(error);
@@ -39,10 +36,7 @@ async function updateUser(request, response, next) {
     response.status(200).json({
       success: true,
       message: "Usuário atualizado",
-      data: {
-        id,
-        name: validatedData.name,
-      },
+      data: { id, name: validatedData.name },
     });
   } catch (error) {
     return next(error);
