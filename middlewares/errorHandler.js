@@ -1,5 +1,5 @@
 const { ZodError } = require("zod");
-function errorHandler(error, request, response, next) {
+function errorHandler(error, request, response) {
   console.error(error);
   if (error instanceof ZodError) {
     return response.status(400).json({
@@ -11,6 +11,5 @@ function errorHandler(error, request, response, next) {
     success: false,
     message: error.message || "Erro interno no servidor",
   });
-  next();
 }
 module.exports = errorHandler;

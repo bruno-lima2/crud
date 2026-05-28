@@ -1,9 +1,9 @@
-const AppError = require("../utils/AppError");
+const { createIdSchema } = require("../schemas/idSchema");
 function validateId(request, response, next) {
-  const { id } = request.params;
-  if (!id || isNaN(id)) {
-    throw new AppError(400, "ID inválido");
+  try {
+    createIdSchema.parse(request.params);
+  } catch (error) {
+    next(error);
   }
-  next();
 }
 module.exports = validateId;
