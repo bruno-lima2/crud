@@ -66,8 +66,8 @@ function findUser(id) {
   return new Promise((resolve, reject) => {
     database.get(
       `
-                SELECT * FROM users
-                WHERE id = ?`,
+              SELECT * FROM users
+              WHERE id = ?`,
       [id],
       function (error, user) {
         if (error) {

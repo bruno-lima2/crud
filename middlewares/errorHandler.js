@@ -1,5 +1,5 @@
 const { ZodError } = require("zod");
-function errorHandler(error, request, response) {
+function errorHandler(error, request, response, next) {
   console.error(error);
   if (error instanceof ZodError) {
     return response.status(400).json({

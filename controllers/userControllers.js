@@ -1,5 +1,5 @@
 const userServices = require("../services/userServices");
-const AppError = require("../utils/AppError");
+const AppError = require("../utils/AppError.js");
 async function listUsers(request, response, next) {
   try {
     const users = await userServices.listUsers();
@@ -8,7 +8,7 @@ async function listUsers(request, response, next) {
       data: users,
     });
   } catch (error) {
-    return next(error);
+    next(error);
   }
 }
 async function addUser(request, response, next) {
@@ -21,7 +21,7 @@ async function addUser(request, response, next) {
       data: { id, name },
     });
   } catch (error) {
-    return next(error);
+    next(error);
   }
 }
 async function updateUser(request, response, next) {
@@ -38,7 +38,7 @@ async function updateUser(request, response, next) {
       data: { id, name },
     });
   } catch (error) {
-    return next(error);
+    next(error);
   }
 }
 async function removeUser(request, response, next) {
@@ -50,7 +50,7 @@ async function removeUser(request, response, next) {
     }
     response.status(204).send();
   } catch (error) {
-    return next(error);
+    next(error);
   }
 }
 async function searchUser(request, response, next) {
@@ -65,13 +65,7 @@ async function searchUser(request, response, next) {
       data: user,
     });
   } catch (error) {
-    return next(error);
+    next(error);
   }
 }
-module.exports = {
-  listUsers,
-  addUser,
-  updateUser,
-  removeUser,
-  searchUser,
-};
+module.exports = { listUsers, addUser, updateUser, removeUser, searchUser };

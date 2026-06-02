@@ -8,16 +8,16 @@ const {
   searchUser,
 } = require("../controllers/userControllers");
 const validateSchema = require("../middlewares/validateSchema");
-const { createUserSchema } = require("../schemas/userSchema");
-const { createIdSchema } = require("../schemas/idSchema");
+const { userSchema } = require("../schemas/userSchema");
+const { idSchema } = require("../schemas/idSchema");
 router.get("/", listUsers);
-router.post("/", validateSchema(createUserSchema, "body"), addUser);
+router.post("/", validateSchema(userSchema, "body"), addUser);
 router.put(
   "/:id",
-  validateSchema(createIdSchema, "params"),
-  validateSchema(createUserSchema, "body"),
+  validateSchema(idSchema, "params"),
+  validateSchema(userSchema, "body"),
   updateUser,
 );
-router.delete("/:id", createIdSchema, "params", removeUser);
-router.get("/:id", createIdSchema, "params", searchUser);
+router.delete("/:id", validateSchema(idSchema, "params"), removeUser);
+router.get("/:id", validateSchema(idSchema, "params"), searchUser);
 module.exports = router;

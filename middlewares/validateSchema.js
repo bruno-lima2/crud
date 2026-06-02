@@ -9,4 +9,4 @@ function validateSchema(schema, property) {
     }
   };
 }
-module.exports = validatedSchema;
+module.exports = validateSchema;
