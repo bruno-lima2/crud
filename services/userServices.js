@@ -1,6 +1,6 @@
 const userRepository = require("../repository/userRepository");
-async function listUsers() {
-  const users = await userRepository.showUsers();
+async function listUsers(limit, offset) {
+  const users = await userRepository.showUsers(limit, offset);
   return users;
 }
 async function addUser(name) {
