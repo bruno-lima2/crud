@@ -1,12 +1,13 @@
 const database = require("../database/database");
-function showUsers(limit, offset) {
+function showUsers(name, limit, offset) {
   return new Promise((resolve, reject) => {
     database.all(
       `
                 SELECT * FROM users
+                WHERE name LIKE ?
                 LIMIT ?
                 OFFSET ?`,
-      [limit, offset],
+      [`%${name}%`, limit, offset],
       function (error, users) {
         if (error) {
           return reject(error);
