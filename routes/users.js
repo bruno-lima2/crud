@@ -14,8 +14,8 @@ router.get("/", listUsers);
 router.post("/", validateSchema(userSchema, "body"), addUser);
 router.put(
   "/:id",
-  validateSchema(userSchema, "body"),
   validateSchema(idSchema, "params"),
+  validateSchema(userSchema, "body"),
   updateUser,
 );
 router.delete("/:id", validateSchema(idSchema, "params"), removeUser);
