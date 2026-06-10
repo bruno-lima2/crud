@@ -10,7 +10,8 @@ const {
 const validateSchema = require("../middlewares/validateSchema");
 const { userSchema } = require("../schemas/userSchema");
 const { idSchema } = require("../schemas/idSchema");
-router.get("/", listUsers);
+const { paginationSchema } = require("../schemas/paginationSchema");
+router.get("/", validateSchema(paginationSchema, "query"), listUsers);
 router.post("/", validateSchema(userSchema, "body"), addUser);
 router.put(
   "/:id",
