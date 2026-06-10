@@ -37,9 +37,9 @@ function changeUser(id, name) {
   return new Promise((resolve, reject) => {
     database.run(
       `
-                    UPDATE users
-                    SET name = ?
-                    WHERE id = ?`,
+                UPDATE users
+                SET name = ?
+                WHERE id = ?`,
       [name, id],
       function (error) {
         if (error) {
@@ -70,8 +70,8 @@ function findUser(id) {
   return new Promise((resolve, reject) => {
     database.get(
       `
-                SELECT * FROM users
-                WHERE id = ?`,
+        SELECT * FROM users
+        WHERE id = ?`,
       [id],
       function (error, user) {
         if (error) {
