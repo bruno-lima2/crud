@@ -2,7 +2,7 @@ const { z } = require("zod");
 const paginationSchema = z.object({
   page: z.coerce
     .number()
-    .int("Pagina deve ser um número inteiro")
+    .int("Página deve ser um número inteiro")
     .positive("Página deve ser maior que 0")
     .default(1),
   limit: z.coerce

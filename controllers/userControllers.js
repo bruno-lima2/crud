@@ -2,7 +2,7 @@ const userServices = require("../services/userServices");
 const AppError = require("../utils/AppError");
 async function listUsers(request, response, next) {
   try {
-    const { page, limit, name = "" } = request.query;
+    const { page = 1, limit = 10, name = "" } = request.query;
     const offset = (page - 1) * limit;
     const users = await userServices.listUsers(name, limit, offset);
     response.status(200).json({
