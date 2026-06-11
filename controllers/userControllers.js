@@ -30,10 +30,11 @@ async function updateUser(request, response, next) {
   try {
     const { id } = request.params;
     const { name } = request.body;
-    const changes = await userServices.updateUser(id, name);
-    if (changes === 0) {
+    const user = await userServices.searchUser(id);
+    if (!user) {
       throw new AppError(404, "Usuário não encontrado");
     }
+    await userServices.updateUser(id, name);
     response.status(200).json({
       success: true,
       message: "Usuário atualizado",
@@ -46,10 +47,11 @@ async function updateUser(request, response, next) {
 async function removeUser(request, response, next) {
   try {
     const { id } = request.params;
-    const changes = await userServices.removeUser(id);
-    if (changes === 0) {
+    const user = await userServices.searchUser(id);
+    if (!user) {
       throw new AppError(404, "Usuário não encontrado");
     }
+    await userServices.removeUser(id);
     response.status(204).send();
   } catch (error) {
     next(error);
