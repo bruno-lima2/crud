@@ -9,7 +9,7 @@ const paginationSchema = z.object({
     .number()
     .int("Limite deve ser um número inteiro")
     .positive("Limite deve ser maior que 0")
-    .max(100, "Limite deve ser no máximo 100")
+    .max(100, "Limite máximo é 100")
     .default(10),
   name: z.string().optional(),
 });

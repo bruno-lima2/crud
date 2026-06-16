@@ -3,6 +3,10 @@ async function listUsers(name, limit, offset) {
   const users = await userRepository.showUsers(name, limit, offset);
   return users;
 }
+async function searchUser(id) {
+  const user = await userRepository.findUser(id);
+  return user;
+}
 async function addUser(name) {
   const id = await userRepository.createUser(name);
   return id;
@@ -15,8 +19,4 @@ async function removeUser(id) {
   const changes = await userRepository.deleteUser(id);
   return changes;
 }
-async function searchUser(id) {
-  const user = await userRepository.findUser(id);
-  return user;
-}
-module.exports = { listUsers, addUser, updateUser, removeUser, searchUser };
+module.exports = { listUsers, searchUser, addUser, updateUser, removeUser };

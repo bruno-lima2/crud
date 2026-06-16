@@ -13,6 +13,21 @@ async function listUsers(request, response, next) {
     next(error);
   }
 }
+async function searchUser(request, response, next) {
+  try {
+    const { id } = request.params;
+    const user = await userServices.searchUser(id);
+    if (!user) {
+      throw new AppError(404, "Usuário não encontrado");
+    }
+    response.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 async function addUser(request, response, next) {
   try {
     const { name } = request.body;
@@ -57,19 +72,4 @@ async function removeUser(request, response, next) {
     next(error);
   }
 }
-async function searchUser(request, response, next) {
-  try {
-    const { id } = request.params;
-    const user = await userServices.searchUser(id);
-    if (!user) {
-      throw new AppError(404, "Usuário não encontrado");
-    }
-    response.status(200).json({
-      success: true,
-      data: user,
-    });
-  } catch (error) {
-    next(error);
-  }
-}
-module.exports = { listUsers, addUser, updateUser, removeUser, searchUser };
+module.exports = { listUsers, searchUser, addUser, updateUser, removeUser };

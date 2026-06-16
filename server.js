@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const router = require("./routes/users");
 const errorHandler = require("./middlewares/errorHandler");
+const router = require("./routes/users");
 app.use(express.json());
 app.use("/usuarios", router);
 app.get("/", (request, response) => {
