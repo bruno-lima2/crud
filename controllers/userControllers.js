@@ -16,10 +16,7 @@ async function listUsers(request, response, next) {
 async function searchUser(request, response, next) {
   try {
     const { id } = request.params;
-    const user = await userServices.searchUser(id);
-    if (!user) {
-      throw new AppError(404, "Usuário não encontrado");
-    }
+    const user = await userServices.findUserOrFail(id);
     response.status(200).json({
       success: true,
       data: user,
@@ -45,10 +42,7 @@ async function updateUser(request, response, next) {
   try {
     const { id } = request.params;
     const { name } = request.body;
-    const user = await userServices.searchUser(id);
-    if (!user) {
-      throw new AppError(404, "Usuário não encontrado");
-    }
+    const user = await userServices.findUserOrFail(id);
     await userServices.updateUser(id, name);
     response.status(200).json({
       success: true,
@@ -62,10 +56,7 @@ async function updateUser(request, response, next) {
 async function removeUser(request, response, next) {
   try {
     const { id } = request.params;
-    const user = await userServices.searchUser(id);
-    if (!user) {
-      throw new AppError(404, "Usuário não encontrado");
-    }
+    const user = await userServices.findUserOrFail(id);
     await userServices.removeUser(id);
     response.status(204).send();
   } catch (error) {

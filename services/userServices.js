@@ -1,4 +1,5 @@
 const userRepository = require("../repository/userRepository");
+const AppError = require("../utils/AppError");
 async function listUsers(name, limit, offset) {
   const users = await userRepository.showUsers(name, limit, offset);
   return users;
@@ -19,4 +20,11 @@ async function removeUser(id) {
   const changes = await userRepository.deleteUser(id);
   return changes;
 }
-module.exports = { listUsers, searchUser, addUser, updateUser, removeUser };
+async function findUserOrFail(id) {
+  const user = await userRepository.findUser(id);
+  if (!user) {
+    throw new AppError(404, "Usuário não encontrado");
+  }
+  return user;
+}
+module.exports = { listUsers, searchUser, addUser, updateUser, removeUser, findUserOrFail };
